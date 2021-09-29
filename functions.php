@@ -21,7 +21,7 @@ function getDb() : PDO {
  * @return array returns an array of arrays, each containing declared fields from database
  */
 function retrieveAlbums(PDO $db) : array {
-    $query = $db->prepare("SELECT `name`, `artist`, `release-year`, `genre`, `record-label`, `image-link` FROM `albums`");
+    $query = $db->prepare("SELECT `name`, `creator`, `release-year`, `genre`, `record-label`, `image-link` FROM `albums`");
     $query->execute();
     return $query->fetchAll();
 }
@@ -40,10 +40,11 @@ function displayAlbums(array $albums) : string {
     }
     foreach ($albums as $album) {
         if ($album['name'] === 'Getz/Gilberto') {
-            $album['artist'] = 'Stan Getz & Joa&#771;o Gilberto';
+            $album['creator'] = 'Stan Getz & Joa&#771;o Gilberto';
         }
-        $displayalbums .= '<div class="album"><img src="' . $album['image-link'] . '" alt ="album cover" /><p>' . $album['name'] . '</p>' .
-            '<p>Creator - ' . $album['artist'] . '</p>' .
+        $displayalbums .= '<div class="album"><img src="' . $album['image-link'] . '" alt ="album cover" />' .
+            '<p>' . $album['name'] . '</p>' .
+            '<p>Creator - ' . $album['creator'] . '</p>' .
             '<p>Released ' . $album['release-year'] . '</p>' .
             '<p>Genre - ' . $album['genre'] . '</p>' .
             '<p>Label - ' . $album['record-label'] . '</p></div>';

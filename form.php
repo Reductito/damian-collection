@@ -3,7 +3,6 @@
 require_once 'functions.php';
 
 $db = getDb();
-
 $safe = safeArray();
 
 echo $safe['name'];

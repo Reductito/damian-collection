@@ -22,7 +22,7 @@ $displayalbums = displayAlbums($albums);
 <body>
 
     <header>
-        <h1>Some Good Albums</h1>
+        <a href="form.php" ><button type="button" class="hidden" >+</button></a><a href="index.php"><h1>Some Good Albums</h1></a><a href="form.php" ><button type="button" >+</button></a>
     </header>
 
     <section>

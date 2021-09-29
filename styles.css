@@ -10,7 +10,7 @@ body {
 header {
     position: sticky;
     display:flex;
-    justify-content: center;
+    justify-content: space-between;
     height: 150px;
     top: 0;
     background-color: #6495ED;
@@ -24,6 +24,20 @@ h1 {
     color: #0d02cf;
     text-shadow: #000 0 0 1px,   #000 0 0 1px,   #000 0 0 1px,
     #000 0 0 1px,   #000 0 0 1px,   #000 0 0 1px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+button {
+    height: 150px;
+    width: 150px;
+    font-size: 64px;
 }
 
 section {
@@ -58,6 +72,9 @@ p {
         font-size: 64px;
         position: static;
     }
+    .hidden {
+        display: none;
+    }
 }
 
 @media (max-width: 705px) {
@@ -83,23 +100,14 @@ p {
     p {
         font-size: 3vw;
     }
+    button {
+        width: 100px;
+    }
 }
 
 @media (max-width: 430px) {
     h1 {
-        font-size: 36px;
-        padding-top: 0;
+        font-size: 10vw;
         position: relative;
-        top: 10px;
-        right: 30px;
-    }
-}
-
-@media (max-width: 360px) {
-    h1 {
-        font-size: 30px;
-        position: static;
-        margin-left: 5px;
-        margin-right: 5px;
     }
 }

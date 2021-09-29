@@ -9,7 +9,7 @@ class functions extends TestCase {
                 'image-link' => 'thingy.png',
                 'name' => 'test',
                 'release-year' => '1999',
-                'artist' => 'blah blah',
+                'creator' => 'blah blah',
                 'genre' => 'music',
                 'record-label' => 'pow'
             ],

@@ -52,5 +52,14 @@ function displayAlbums(array $albums) : string {
     return $displayalbums;
 }
 
+function safeArray() : array {
+    $safearray = [];
+
+    foreach ($_POST as $field => $value) {
+        $safearray[$field] = htmlspecialchars($value);
+    }
+    return $safearray;
+}
+
 
 

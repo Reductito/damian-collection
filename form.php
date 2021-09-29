@@ -1,3 +1,24 @@
+<?php
+
+require_once 'functions.php';
+
+$db = getDb();
+
+$safe = safeArray();
+
+echo $safe['name'];
+echo $safe['creator'];
+echo $safe['genre'];
+echo $safe['release-year'];
+echo $safe['record-label'];
+
+var_dump($safe);
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -48,4 +69,11 @@
 </section>
 
 </body>
+
+
+
+
+
+
+
 

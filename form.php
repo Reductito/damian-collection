@@ -18,27 +18,27 @@
     <form method="post">
         <div>
             <label for="name" >Name: </label>
-            <input type="text" id="name" name="name" maxlength="255" required /><br>
+            <input type="text" id="name" name="name" maxlength="255"  /><br>
         </div>
         <div>
             <label for="creator" >Creator: </label>
-            <input type="text" id="creator" name="creator" maxlength="255" required /><br>
+            <input type="text" id="creator" name="creator" maxlength="255"  /><br>
         </div>
         <div>
             <label for="release-year" >Release Year: </label>
-            <input type="number" id="release-year" name="release-year" maxlength="4" required /><br>
+            <input type="number" id="release-year" name="release-year" maxlength="4"  /><br>
         </div>
         <div>
             <label for="genre" >Genre: </label>
-            <input type="text" id="genre" name="genre" maxlength="255" required /><br>
+            <input type="text" id="genre" name="genre" maxlength="255"  /><br>
         </div>
         <div>
             <label for="record-label" >Record Label: </label>
-            <input type="text" id="record-label" name="record-label" maxlength="255" required /><br>
+            <input type="text" id="record-label" name="record-label" maxlength="255"  /><br>
         </div>
         <div>
             <label for="image-link" >Image URL: </label>
-            <input type="text" id="image-link" name="image-link" maxlength="255" required /><br>
+            <input type="text" id="image-link" name="image-link" maxlength="255"  /><br>
         </div>
         <div>
             <label class="hiddenform">Creator: </label>

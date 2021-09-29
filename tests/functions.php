@@ -6,7 +6,7 @@ class functions extends TestCase {
     public function testIsStringDisplayAlbums() {
         $albums = [
             [
-                'image-link' => 'blskdjfldksjf',
+                'image-link' => 'thingy.png',
                 'name' => 'test',
                 'release-year' => '1999',
                 'artist' => 'blah blah',
@@ -14,7 +14,15 @@ class functions extends TestCase {
                 'record-label' => 'pow'
             ],
         ];
+
+        $expected = '<div class="album"><img src="thingy.png" alt ="album cover" /><p>test</p>' .
+            '<p>Creator - blah blah</p>' .
+            '<p>Released 1999</p>' .
+            '<p>Genre - music</p>' .
+            '<p>Label - pow</p></div>';
+
         $case = displayAlbums($albums);
+        $this->assertEquals($case, $expected);
         $this->assertIsString($case);
     }
 
@@ -28,7 +36,7 @@ class functions extends TestCase {
     public function testFailureDisplayAlbums() {
 
         $input = [];
-        $expected = 'ERROR ERROR ERROR';
+        $expected = 'Error - cannot display albums. Please try again later.';
         $case = displayAlbums($input);
         $this->assertEquals($expected, $case);
     }

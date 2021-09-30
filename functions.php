@@ -52,14 +52,60 @@ function displayAlbums(array $albums) : string {
     return $displayalbums;
 }
 
-function safeArray() : array {
+/**
+ * Takes data from $_POST and cleanses the special characters
+ *
+ * @param1 array $_POST
+ *
+ * @return array returns an array where the keys match the database fields but special characters in the values are cleansed
+ */
+function safeArray(array $post) : array {
     $safearray = [];
-
-    foreach ($_POST as $field => $value) {
+    if(!count($post)) {
+        $safearray[] = 'Please fill out all fields correctly.';
+        return $safearray;
+    }
+    foreach ($post as $field => $value) {
         $safearray[$field] = htmlspecialchars($value);
     }
     return $safearray;
 }
 
+/**
+ * Adds an entry to the database using cleansed user submitted form data
+ *
+ * @param1 PDO $db chosen database
+ * @param2 $safe cleansed version of user form data stored in post
+ *
+ * @return array adds the array into the database
+ */
+function addAlbum(PDO $db, array $safe) : bool {
 
+    $query = $db->prepare("INSERT INTO `albums` (`name`, `creator`, `release-year`, `genre`, `record-label`, `image-link`) VALUES (:name, :creator, :year, :genre, :label, :link);");
+    $query->bindParam(':name', $safe['name']);
+    $query->bindParam(':creator', $safe['creator']);
+    $query->bindParam(':year', $safe['release-year']);
+    $query->bindParam(':genre', $safe['genre']);
+    $query->bindParam(':label', $safe['record-label']);
+    $query->bindParam(':link', $safe['image-link']);
+    return $query->execute();
+}
+
+/**
+ * Validates user input
+ *
+ * @param array $array the array that will be checked
+ *
+ * @return bool returns true if array passes validation
+ */
+function checkString(array $array) : bool {
+    foreach ($array as $key => $item) {
+        if ($key === 'release-year' && strlen($item) > 4 ) {
+            return false;
+        } else if ($item == '' || strlen($item) > 255) {
+            return false;
+        }
+    }
+    return true;
+}
 

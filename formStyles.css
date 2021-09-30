@@ -29,9 +29,18 @@ a {
     text-decoration: none;
 }
 
+#error {
+    font-size: 36px;
+    color: red;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
 form {
     border: 1px solid black;
     padding: 50px 100px 50px 100px;
+    margin-bottom: 100px;
     font-family: 'Inknut Antiqua', serif;
     background-color: #d9ed64;
     display: flex;

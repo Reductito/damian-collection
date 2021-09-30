@@ -2,18 +2,18 @@
 
 require_once 'functions.php';
 
-$db = getDb();
-$post = $_POST;
-$get = $_GET;
-$safe = safeArray($post);
+$error = null;
 
-if (isset($get['submit'])) {
-    checkAlbum($db, $safe);
+if (isset($_POST['name']) && checkString($_POST)) {
+    $db = getDb();
+    $safe = safeArray($_POST);
+    $addedAlbum = addAlbum($db, $safe);
+    if(!$addedAlbum) {
+        $error = '<div id="error">Please fill out fields correctly.</div>';
+    }
+    header("Location: index.php?submitted");
 }
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en" >
@@ -32,7 +32,11 @@ if (isset($get['submit'])) {
     <a href="index.php"><h1>Some Good Albums</h1></a>
 </header>
 <section>
-    <form method="post" action="form.php?submit">
+    <form method="post" action="form.php">
+        <?php
+        $result = $error ?? '';
+        echo $result;
+        ?>
         <div>
             <label for="name" >Name: </label>
             <input type="text" id="name" name="name" maxlength="255" required /><br>
@@ -60,8 +64,6 @@ if (isset($get['submit'])) {
         <div>
             <label class="hiddenform">Creator: </label>
             <input type="submit" value="Submit your entry!"/>
-        </div>
-        <div><?php goToError($get);?>
         </div>
     </form>
 </section>

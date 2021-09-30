@@ -59,4 +59,25 @@ class functions extends TestCase {
         $case = safeArray($input);
         $this->assertEquals($expected, $case);
     }
+
+    public function testSuccessCheckString() {
+        $albums = ['name' => 'test', 'release-year' => '1999'];
+        $expected = true;
+        $case = checkString($albums);
+        $this->assertEquals($case, $expected);
+    }
+
+    public function testMalformedCheckString() {
+        $albums = 3;
+        $this->expectException(TypeError::class);
+        checkString($albums);
+    }
+
+    public function testFailureCheckString() {
+        $albums = ['name' => 'test', 'release-year' => '409534'];
+        $expected = false;
+        $case = checkString($albums);
+        $this->assertEquals($case, $expected);
+    }
+
 }

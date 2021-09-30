@@ -52,14 +52,83 @@ function displayAlbums(array $albums) : string {
     return $displayalbums;
 }
 
-function safeArray() : array {
+/**
+ * Takes data from $_POST and cleanses the special characters
+ *
+ * @param1 array $_POST
+ *
+ * @return array returns an array where the keys match the database fields but special characters in the values are cleansed
+ */
+function safeArray(array $post) : array {
     $safearray = [];
-
-    foreach ($_POST as $field => $value) {
+    if(count($post) == 0) {
+        $safearray = ['Please fill out all fields correctly.'];
+    }
+    foreach ($post as $field => $value) {
         $safearray[$field] = htmlspecialchars($value);
     }
     return $safearray;
 }
 
+/**
+ * Adds an entry to the database using cleansed user submitted form data
+ *
+ * @param1 PDO $db chosen database
+ * @param2 $safe cleansed version of user form data stored in post
+ *
+ * @return array adds the array into the database
+ */
+function addAlbum(PDO $db, array $safe) : array {
 
+    $query = $db->prepare("INSERT INTO `albums` (`name`, `creator`, `release-year`, `genre`, `record-label`, `image-link`) VALUES (:name, :creator, :year, :genre, :label, :link);");
+    $query->bindParam(':name', $safe['name']);
+    $query->bindParam(':creator', $safe['creator']);
+    $query->bindParam(':year', $safe['release-year']);
+    $query->bindParam(':genre', $safe['genre']);
+    $query->bindParam(':label', $safe['record-label']);
+    $query->bindParam(':link', $safe['image-link']);
+    $query->execute();
+
+    return $query->fetchAll();
+}
+
+/**
+ * Checks if the entry passes validation before adding to database
+ *
+ * @param PDO $db used in addAlbum function to add to database
+ * @param array $safe cleansed user form data collected from post
+ */
+function checkAlbum(PDO $db, array $safe) {
+    $options = array ('options' => array('min_range' => 0, 'max_range' => 2021));
+
+    if (count($safe) != 6) {
+        header("Location: form.php?error#error");
+    } elseif ($safe['name'] == '' or strlen($safe['name']) > 255 ) {
+        header("Location: form.php?error#error");
+    } elseif ($safe['creator'] == '' or strlen($safe['creator']) > 255 ) {
+        header("Location: form.php?error#error");
+    } elseif ($safe['release-year'] == '' or strlen($safe['release-year']) > 4 or filter_var($safe['release-year'], FILTER_VALIDATE_INT, $options) == 0 ) {
+        header("Location: form.php?error#error");
+    } elseif ($safe['genre'] == '' or strlen($safe['genre']) > 255 ) {
+        header("Location: form.php?error#error");
+    } elseif ($safe['record-label'] == '' or strlen($safe['record-label']) > 255 ) {
+        header("Location: form.php?error#error");
+    } elseif ($safe['image-link'] == '' or strlen($safe['image-link']) > 255 ) {
+        header("Location: form.php?error#error");
+    } else {
+        addAlbum($db, $safe);
+        header("Location: index.php?submitted");
+    }
+}
+
+/**
+ * Displays error message if user data does not pass validation
+ *
+ * @param array $get checks get to see if an error has been declared. If it has, displays error message
+ */
+function goToError(array $get) {
+    if(isset($get['error'])) {
+        echo '<p id="error" >Fields entered incorrectly. Please try again.</p>';
+    }
+}
 

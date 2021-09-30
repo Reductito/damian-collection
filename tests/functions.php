@@ -26,8 +26,7 @@ class functions extends TestCase {
         $this->assertIsString($case);
     }
 
-    public function testMalformedDisplayAlbums()
-    {
+    public function testMalformedDisplayAlbums() {
         $input = 3;
         $this->expectException(TypeError::class);
         displayAlbums($input);
@@ -38,6 +37,26 @@ class functions extends TestCase {
         $input = [];
         $expected = 'Error - cannot display albums. Please try again later.';
         $case = displayAlbums($input);
+        $this->assertEquals($expected, $case);
+    }
+
+    public function testSuccessSafeArray() {
+        $post['name'] = '<';
+        $expected = ['name' => '&lt;'];
+        $case = safeArray($post);
+        $this->assertEquals($case, $expected);
+    }
+
+    public function testMalformedSafeArray() {
+        $safearray = 5;
+        $this->expectException(TypeError::class);
+        safeArray($safearray);
+    }
+
+    public function testFailureSafeArray() {
+        $input = [];
+        $expected = ['Please fill out all fields correctly.'];
+        $case = safeArray($input);
         $this->assertEquals($expected, $case);
     }
 }

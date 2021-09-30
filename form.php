@@ -11,7 +11,9 @@ if (isset($_POST['name']) && checkString($_POST)) {
     if(!$addedAlbum) {
         $error = '<div id="error">Please fill out fields correctly.</div>';
     }
-    header("Location: index.php?submitted");
+    elseif ($addedAlbum) {
+        header("Location: index.php?submitted");
+    }
 }
 ?>
 
@@ -47,7 +49,7 @@ if (isset($_POST['name']) && checkString($_POST)) {
         </div>
         <div>
             <label for="release-year" >Release Year: </label>
-            <input type="text"  id="release-year" name="release-year" required />
+            <input type="text"  id="release-year" name="release-year" inputmode="numeric" pattern="[0-9]*" required />
         </div>
         <div>
             <label for="genre" >Genre: </label>

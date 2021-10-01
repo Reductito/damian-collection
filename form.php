@@ -11,10 +11,12 @@ if (isset($_POST['name']) && checkString($_POST)) {
     if(!$addedAlbum) {
         $error = '<div id="error">Please fill out fields correctly.</div>';
     }
-    elseif ($addedAlbum) {
-        header("Location: index.php?submitted");
-    }
+    header("Location: index.php?submitted");
 }
+if (isset($_POST['name']) && !checkString($_POST)) {
+    $error = '<div id="error">Please fill out fields correctly.</div>';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +43,7 @@ if (isset($_POST['name']) && checkString($_POST)) {
         ?>
         <div>
             <label for="name" >Name: </label>
-            <input type="text" id="name" name="name" maxlength="255" required /><br>
+            <input type="text" id="name" name="name" required /><br>
         </div>
         <div>
             <label for="creator" >Creator: </label>
